@@ -40,6 +40,9 @@ class ShowText:
             "required": {
                 "text": ("STRING", {"forceInput": True}),
             },
+            "optional": {
+                "text_widget": ("STRING", {"multiline": True, "default": ""}),
+            },
             "hidden": {
                 "unique_id": "UNIQUE_ID",
                 "extra_pnginfo": "EXTRA_PNGINFO",
