@@ -55,6 +55,7 @@ class ShowText:
         return {
             "required": {
                 "text": ("STRING", {"forceInput": True}),
+                "display_text": ("STRING", {"multiline": True, "default": "", "readonly": True}),
             }
         }
 
@@ -64,11 +65,11 @@ class ShowText:
     OUTPUT_NODE = True
     CATEGORY = "MyCustomNodes"
 
-    def show(self, text):
+    def show(self, text, display_text):
         # Der Input ist meist eine Liste, daher zusammenfügen
         text_to_display = "\n".join(text)
-        # Rückgabe als UI-Output, damit der Text im Node angezeigt wird
-        return {"ui": {"text": [text_to_display]}}
+        # display_text Widget im Node aktualisieren
+        return {"ui": {"display_text": [text_to_display]}}
 
 NODE_CLASS_MAPPINGS = {
     "AddNumbers": AddNumbers,
