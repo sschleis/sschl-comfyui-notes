@@ -23,6 +23,7 @@ The project is structured as follows:
     -   `show_text.py`: The "Show Text" node.
     -   `combine_strings.py`: The "Combine Strings" node.
     -   `text_appender.py`: The "Text Appender" node.
+    -   `ss_text_encoder.py`: The "SSchl Text Encoder" node.
 
 ## Verfügbare Nodes
 
@@ -32,3 +33,4 @@ The project is structured as follows:
 *   **Input Text**: Ermöglicht die Eingabe von Text, der an andere Nodes weitergegeben werden kann.
 *   **Combine Strings**: Führt zwei Strings zusammen.
 *   **Text Appender**: Hängt einen Text an einen eingehenden String an (Anfang oder Ende).
+*   **SSchl Text Encoder**: Kodiert einen eingehenden Text mit einem CLIP-Modell, ähnlich dem Standard-Text-Encoder von ComfyUI, aber mit Texteingabe von einer anderen Node.
