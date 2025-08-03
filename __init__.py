@@ -44,6 +44,7 @@ class ShowText:
     RETURN_TYPES = ()
     FUNCTION = "show"
     OUTPUT_NODE = True
+    IS_CHANGED = True
     CATEGORY = "MyCustomNodes"
 
     def show(self, text):
