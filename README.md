@@ -21,6 +21,8 @@ The project is structured as follows:
     -   `float_to_str.py`: The "Float to String" node.
     -   `input_text.py`: The "Input Text" node.
     -   `show_text.py`: The "Show Text" node.
+    -   `combine_strings.py`: The "Combine Strings" node.
+    -   `text_appender.py`: The "Text Appender" node.
 
 ## Verfügbare Nodes
 
@@ -28,3 +30,5 @@ The project is structured as follows:
 *   **Float to String**: Wandelt einen Float-Wert in einen String um.
 *   **Show Text**: Zeigt einen Text an.
 *   **Input Text**: Ermöglicht die Eingabe von Text, der an andere Nodes weitergegeben werden kann.
+*   **Combine Strings**: Führt zwei Strings zusammen.
+*   **Text Appender**: Hängt einen Text an einen eingehenden String an (Anfang oder Ende).
