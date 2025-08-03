@@ -59,24 +59,13 @@ class ShowText:
         print(f'[ShowText] Received text: "{text}"', file=sys.stderr)
         print(f'[ShowText] Type of text: {type(text)}', file=sys.stderr)
 
-        # Ensure the text is a list of strings for the UI
-        if isinstance(text, str):
-            text_to_display = [text]
-        elif isinstance(text, (list, tuple)):
-            text_to_display = [str(item) for item in text]
+        # Ensure the text is a single string
+        if isinstance(text, (list, tuple)):
+            text_to_display = "\n".join([str(item) for item in text])
         else:
-            text_to_display = [str(text)]
+            text_to_display = str(text)
 
-        # This part is key: it updates the widget value in the workflow data,
-        # which is what makes the text appear in the node's text box.
-        if unique_id is not None and extra_pnginfo is not None and isinstance(extra_pnginfo, list) and len(extra_pnginfo) > 0:
-            workflow = extra_pnginfo[0].get("workflow")
-            if workflow and isinstance(workflow, dict):
-                node = next((x for x in workflow.get("nodes", []) if str(x.get("id")) == str(unique_id[0])), None)
-                if node:
-                    node["widgets_values"] = text_to_display
-
-        return {"ui": {"text": text_to_display}, "result": (text,)}
+        return {"ui": {"text_widget": [text_to_display]}, "result": (text_to_display,)}
 
 class InputText:
     @classmethod
