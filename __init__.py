@@ -31,8 +31,6 @@ class FloatToStr:
     def convert(self, value):
         return (str(value),)
 
-import sys
-
 class ShowText:
     @classmethod
     def INPUT_TYPES(s):
@@ -40,32 +38,15 @@ class ShowText:
             "required": {
                 "text": ("STRING", {"forceInput": True}),
             },
-            "optional": {
-                "text_widget": ("STRING", {"multiline": True, "default": ""}),
-            },
-            "hidden": {
-                "unique_id": "UNIQUE_ID",
-                "extra_pnginfo": "EXTRA_PNGINFO",
-            },
         }
 
-    RETURN_TYPES = ("STRING",)
+    RETURN_TYPES = ()
     FUNCTION = "show"
     OUTPUT_NODE = True
     CATEGORY = "MyCustomNodes"
 
-    def show(self, text, text_widget=None, unique_id=None, extra_pnginfo=None):
-        # Log the received text and its type to the console for debugging
-        print(f'[ShowText] Received text: "{text}"', file=sys.stderr)
-        print(f'[ShowText] Type of text: {type(text)}', file=sys.stderr)
-
-        # Ensure the text is a single string
-        if isinstance(text, (list, tuple)):
-            text_to_display = "\n".join([str(item) for item in text])
-        else:
-            text_to_display = str(text)
-
-        return {"ui": {"text_widget": [text_to_display]}, "result": (text_to_display,)}
+    def show(self, text):
+        return {"ui": {"text": text}}
 
 class InputText:
     @classmethod
