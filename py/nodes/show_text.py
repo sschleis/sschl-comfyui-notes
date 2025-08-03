@@ -10,15 +10,12 @@ class ShowText:
             }
         }
 
-    RETURN_TYPES = ()
+    RETURN_TYPES = ("STRING",)
     FUNCTION = "show"
     OUTPUT_NODE = True
     CATEGORY = "MyCustomNodes"
 
     def show(self, text, display_text):
-
-        print(f"[ShowText] Displaying text: {text}")
-
-        # This is the key: we return a UI dictionary telling ComfyUI to update
-        # the 'display_text' widget with our formatted text.
-        return {"ui": {"display_text": [text]}}
+        text_to_display = "\n".join(text)
+        print(f"[ShowText] Displaying text: {text_to_display}")
+        return {"ui": {"display_text": [text_to_display]}, "result": (text,)}
