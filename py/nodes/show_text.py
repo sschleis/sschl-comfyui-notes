@@ -19,6 +19,8 @@ class ShowText:
         # The input from the socket is a list, so we join it into a single string.
         text_to_display = "\n".join(text)
 
+        print(f"[ShowText] Displaying text: {text_to_display}")
+
         # This is the key: we return a UI dictionary telling ComfyUI to update
         # the 'display_text' widget with our formatted text.
         return {"ui": {"display_text": [text_to_display]}}
