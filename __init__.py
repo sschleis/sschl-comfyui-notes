@@ -66,10 +66,10 @@ class ShowText:
 
         # This part is key: it updates the widget value in the workflow data,
         # which is what makes the text appear in the node's text box.
-        if unique_id is not None and extra_pnginfo is not None:
+        if unique_id is not None and extra_pnginfo is not None and isinstance(extra_pnginfo, list) and len(extra_pnginfo) > 0:
             workflow = extra_pnginfo[0].get("workflow")
-            if workflow:
-                node = next((x for x in workflow["nodes"] if str(x["id"]) == str(unique_id[0])), None)
+            if workflow and isinstance(workflow, dict):
+                node = next((x for x in workflow.get("nodes", []) if str(x.get("id")) == str(unique_id[0])), None)
                 if node:
                     node["widgets_values"] = text_to_display
 
