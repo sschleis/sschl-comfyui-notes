@@ -1,5 +1,3 @@
-import torch
-
 class AddNumbers:
     @classmethod
     def INPUT_TYPES(cls):
@@ -19,4 +17,8 @@ class AddNumbers:
 
 NODE_CLASS_MAPPINGS = {
     "AddNumbers": AddNumbers
+}
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "AddNumbers": "Add Numbers"
 }
