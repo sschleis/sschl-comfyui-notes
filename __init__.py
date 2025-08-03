@@ -32,6 +32,8 @@ class FloatToStr:
     def convert(self, value):
         return (str(value),)
 
+import sys
+
 class ShowText:
     @classmethod
     def INPUT_TYPES(s):
@@ -44,10 +46,11 @@ class ShowText:
     RETURN_TYPES = ()
     FUNCTION = "show"
     OUTPUT_NODE = True
-    IS_CHANGED = True
     CATEGORY = "MyCustomNodes"
 
     def show(self, text):
+        print(f"[ShowText] Received text: {text}", file=sys.stderr)
+        print(f"[ShowText] Type of text: {type(text)}", file=sys.stderr)
         return {"ui": {"text": list(text)}}
 
 NODE_CLASS_MAPPINGS = {
