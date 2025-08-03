@@ -16,6 +16,6 @@ class ShowText:
     CATEGORY = "MyCustomNodes"
 
     def show(self, text, display_text):
-        text_to_display = "\n".join(text)
-        print(f"[ShowText] Displaying text: {text_to_display}")
-        return {"ui": {"display_text": [text_to_display]}, "result": (text,)}
+    
+        print(f"[ShowText] Displaying text: {text}")
+        return {"ui": {"display_text": [text]}, "result": (text,)}
