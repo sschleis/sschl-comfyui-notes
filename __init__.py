@@ -54,7 +54,7 @@ class ShowText:
     OUTPUT_NODE = True
     CATEGORY = "MyCustomNodes"
 
-    def show(self, text, unique_id=None, extra_pnginfo=None):
+    def show(self, text, text_widget=None, unique_id=None, extra_pnginfo=None):
         # Log the received text and its type to the console for debugging
         print(f'[ShowText] Received text: "{text}"', file=sys.stderr)
         print(f'[ShowText] Type of text: {type(text)}', file=sys.stderr)
