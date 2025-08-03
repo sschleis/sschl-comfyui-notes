@@ -46,31 +46,34 @@ class ShowText:
             },
         }
 
-    INPUT_IS_LIST = True
     RETURN_TYPES = ("STRING",)
     FUNCTION = "show"
     OUTPUT_NODE = True
-    OUTPUT_IS_LIST = (True,)
+    CATEGORY = "MyCustomNodes"
 
     def show(self, text, unique_id=None, extra_pnginfo=None):
-        if unique_id is not None and extra_pnginfo is not None:
-            if not isinstance(extra_pnginfo, list):
-                print("Error: extra_pnginfo is not a list")
-            elif (
-                not isinstance(extra_pnginfo[0], dict)
-                or "workflow" not in extra_pnginfo[0]
-            ):
-                print("Error: extra_pnginfo[0] is not a dict or missing 'workflow' key")
-            else:
-                workflow = extra_pnginfo[0]["workflow"]
-                node = next(
-                    (x for x in workflow["nodes"] if str(x["id"]) == str(unique_id[0])),
-                    None,
-                )
-                if node:
-                    node["widgets_values"] = [text]
+        # Log the received text and its type to the console for debugging
+        print(f'[ShowText] Received text: "{text}"', file=sys.stderr)
+        print(f'[ShowText] Type of text: {type(text)}', file=sys.stderr)
 
-        return {"ui": {"text": text}, "result": (text,)}
+        # Ensure the text is a list of strings for the UI
+        if isinstance(text, str):
+            text_to_display = [text]
+        elif isinstance(text, (list, tuple)):
+            text_to_display = [str(item) for item in text]
+        else:
+            text_to_display = [str(text)]
+
+        # This part is key: it updates the widget value in the workflow data,
+        # which is what makes the text appear in the node's text box.
+        if unique_id is not None and extra_pnginfo is not None:
+            workflow = extra_pnginfo[0].get("workflow")
+            if workflow:
+                node = next((x for x in workflow["nodes"] if str(x["id"]) == str(unique_id[0])), None)
+                if node:
+                    node["widgets_values"] = text_to_display
+
+        return {"ui": {"text": text_to_display}, "result": (text,)}
 
 class InputText:
     @classmethod
