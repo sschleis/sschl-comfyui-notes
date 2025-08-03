@@ -21,7 +21,7 @@ class FloatToStr:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "value": ("FLOAT", {"default": 0.0, "step": 0.01}),
+                "value": ("FLOAT", {"forceInput": True}),
             }
         }
 
