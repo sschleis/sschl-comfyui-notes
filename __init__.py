@@ -47,7 +47,7 @@ class ShowText:
     CATEGORY = "MyCustomNodes"
 
     def show(self, text):
-        return {"ui": {"text": [text]}}
+        return {"ui": {"text": list(text)}}
 
 NODE_CLASS_MAPPINGS = {
     "AddNumbers": AddNumbers,
