@@ -13,3 +13,4 @@ Meine ersten Custom Nodes für ComfyUI.
 *   **Add Numbers**: Ein einfacher Node, der zwei Zahlen addiert.
 *   **Float to String**: Wandelt einen Float-Wert in einen String um.
 *   **Show Text**: Zeigt einen Text an.
+*   **Input Text**: Ermöglicht die Eingabe von Text, der an andere Nodes weitergegeben werden kann.

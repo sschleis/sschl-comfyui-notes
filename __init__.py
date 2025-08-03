@@ -1,4 +1,3 @@
-
 class AddNumbers:
     @classmethod
     def INPUT_TYPES(cls):
@@ -73,15 +72,32 @@ class ShowText:
 
         return {"ui": {"text": text}, "result": (text,)}
 
+class InputText:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "text": ("STRING", {"multiline": True, "default": ""}),
+            }
+        }
+
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "get_text"
+    CATEGORY = "MyCustomNodes"
+
+    def get_text(self, text):
+        return (text,)
 
 NODE_CLASS_MAPPINGS = {
     "AddNumbers": AddNumbers,
     "FloatToStr": FloatToStr,
-    "ShowText": ShowText
+    "ShowText": ShowText,
+    "InputText": InputText
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "AddNumbers": "Add Numbers",
     "FloatToStr": "Float to String",
-    "ShowText": "Show Text"
+    "ShowText": "Show Text",
+    "InputText": "Input Text"
 }
