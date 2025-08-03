@@ -26,6 +26,7 @@ class SSchlTextEncoder:
         if hasattr(clip, 'is_pooled') and clip.is_pooled:
             cond, pooled = clip.encode_from_tokens(tokens, return_pooled=True)
         else:
-            cond, pooled = clip.encode_from_tokens(tokens, return_pooled=False)
+            cond = clip.encode_from_tokens(tokens, return_pooled=False)
+            pooled = None
 
         return ([[cond, {"pooled_output": pooled}]],)
