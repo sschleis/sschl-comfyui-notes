@@ -21,8 +21,8 @@ class TextAppender:
             text_in = str(text_in)
 
         if position == "start":
-            result = append_text + text_in
+            result = append_text + "\n" + text_in
         else:  # position == "end"
-            result = text_in + append_text
+            result = text_in + "\n" + append_text
 
         return (result,)

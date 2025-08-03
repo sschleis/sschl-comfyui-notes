@@ -14,7 +14,5 @@ class CombineStrings:
 
     def combine(self, string_a, string_b):
         # The inputs are lists of strings, so we join them before combining.
-        combined_string_a = "\n".join(string_a)
-        combined_string_b = "\n".join(string_b)
-        result = combined_string_a + combined_string_b
+        result = string_a + "\n" + string_b
         return (result,)
