@@ -6,6 +6,7 @@ from .py.nodes.combine_strings import CombineStrings
 from .py.nodes.text_appender import TextAppender
 from .py.nodes.ss_text_encoder import SSchlTextEncoder
 from .py.nodes.character import Character
+from .py.nodes.connector import Connector
 
 NODE_CLASS_MAPPINGS = {
     "AddNumbers": AddNumbers,
@@ -16,6 +17,7 @@ NODE_CLASS_MAPPINGS = {
     "TextAppender": TextAppender,
     "SSchlTextEncoder": SSchlTextEncoder,
     "Character": Character,
+    "Connector": Connector,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -27,4 +29,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "TextAppender": "Text Appender",
     "SSchlTextEncoder": "SSchl Text Encoder",
     "Character": "Character",
+    "Connector": "Connector",
 }
