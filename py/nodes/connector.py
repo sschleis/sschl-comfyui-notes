@@ -1,3 +1,9 @@
+class AnyType(str):
+    def __ne__(self, __value: object) -> bool:
+        return False
+
+any_type = AnyType("*")
+
 class Connector:
     """
     A simple node that takes any input and returns it unchanged.
@@ -6,11 +12,11 @@ class Connector:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "input": ("*",),
+                "input": (any_type,),
             },
         }
 
-    RETURN_TYPES = ("*",)
+    RETURN_TYPES = (any_type,)
     FUNCTION = "connect"
 
     CATEGORY = "sschl"
