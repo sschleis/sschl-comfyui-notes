@@ -1,3 +1,4 @@
+
 import torch
 import folder_paths
 from PIL import Image
@@ -12,7 +13,9 @@ class Gallery:
     @classmethod
     def INPUT_TYPES(s):
         return {
-            "required": {},
+            "required": {
+                 "trigger": (["on", "off"], {"default": "on"}),
+            },
             "optional": {
                 "image": ("IMAGE",),
                 "gallery": ("GALLERY",)
@@ -24,7 +27,12 @@ class Gallery:
     CATEGORY = "Notes"
     OUTPUT_NODE = True
 
-    def create_gallery(self, image=None, gallery=None):
+    def create_gallery(self, trigger, image=None, gallery=None):
+        if trigger == 'off':
+            # If triggered off, we can return the existing gallery without changes
+            # or an empty one if none exists.
+            return (gallery if gallery is not None else [],)
+
         new_gallery = gallery if gallery is not None else []
         if image is not None:
             new_gallery.append(image)
