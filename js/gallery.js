@@ -50,13 +50,13 @@ app.registerExtension({
             nodeType.prototype.onExecuted = function (message) {
                 onExecuted?.apply(this, arguments);
 
-                if (this.galleryContainer && message?.images) {
+                if (this.galleryContainer && message?.gallery_images) {
                     // Clear previous images, but keep the style element
                     while (this.galleryContainer.children.length > 1) {
                         this.galleryContainer.removeChild(this.galleryContainer.lastChild);
                     }
 
-                    message.images.forEach(imgInfo => {
+                    message.gallery_images.forEach(imgInfo => {
                         const img = new Image();
                         img.src = `/view?filename=${encodeURIComponent(imgInfo.filename)}&type=${imgInfo.type}&subfolder=${encodeURIComponent(imgInfo.subfolder)}`;
                         img.onclick = () => {

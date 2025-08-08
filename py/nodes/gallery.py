@@ -22,7 +22,7 @@ class Gallery:
     RETURN_TYPES = ("GALLERY",)
     FUNCTION = "create_gallery"
     CATEGORY = "Notes"
-    OUTPUT_NODE = False
+    OUTPUT_NODE = True
 
     def create_gallery(self, gallery=None, **kwargs):
         # Robustly initialize the gallery. It must be a list.
@@ -62,7 +62,7 @@ class Gallery:
                 "type": self.type
             })
 
-        return {"ui": {"images": ui_images}, "result": (new_gallery,)}
+        return {"ui": {"gallery_images": ui_images}, "result": (new_gallery,)}
 
 NODE_CLASS_MAPPINGS = {
     "Gallery": Gallery
