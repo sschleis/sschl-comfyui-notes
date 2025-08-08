@@ -1,3 +1,4 @@
+
 import { app } from "/scripts/app.js";
 
 app.registerExtension({
@@ -18,12 +19,13 @@ app.registerExtension({
                 style.textContent = `
                     .sschl-gallery-widget {
                         width: 100%;
-                        min-height: 100px; /* Ensure it has some height initially */
+                        height: 100%; /* Fill the available height */
                         display: grid;
                         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
                         gap: 4px;
                         padding: 4px;
                         box-sizing: border-box;
+                        overflow-y: auto; /* Add scrollbar if content overflows */
                     }
                     .sschl-gallery-widget img {
                         width: 100%;
@@ -43,6 +45,13 @@ app.registerExtension({
                 // Add the DOM widget to the node
                 this.addDOMWidget("gallery", "div", widgetContainer);
                 this.galleryContainer = widgetContainer;
+
+                // Add a resize handler to redraw on node resize
+                const onResize = this.onResize;
+                this.onResize = function() {
+                    onResize?.apply(this, arguments);
+                    this.setDirtyCanvas(true, true);
+                }
             };
 
             // Monkey patch onExecuted to display the images
@@ -92,13 +101,11 @@ app.registerExtension({
                 for (let i = this.inputs.length - 1; i >= 0; i--) {
                     const input = this.inputs[i];
                     if (input.name.startsWith("image_") && input.link === null) {
-                        // Only remove if it's not the last one of its kind
                         const nextInput = this.inputs[i+1];
                         if(nextInput && nextInput.name.startsWith("image_")){
                              this.removeInput(i);
                         }
                     } else {
-                        // Stop at the first connected one from the end
                         break;
                     }
                 }
