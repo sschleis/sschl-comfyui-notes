@@ -21,7 +21,7 @@ app.registerExtension({
                         width: 100%;
                         height: 100%; /* Fill the available height */
                         display: grid;
-                        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                        grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
                         gap: 4px;
                         padding: 4px;
                         box-sizing: border-box;
