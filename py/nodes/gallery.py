@@ -1,4 +1,3 @@
-
 import torch
 import folder_paths
 from PIL import Image
@@ -13,9 +12,7 @@ class Gallery:
     @classmethod
     def INPUT_TYPES(s):
         return {
-            "required": {
-                 "trigger": (["on", "off"], {"default": "on"}),
-            },
+            "required": {},
             "optional": {
                 "image": ("IMAGE",),
                 "gallery": ("GALLERY",)
@@ -27,18 +24,23 @@ class Gallery:
     CATEGORY = "Notes"
     OUTPUT_NODE = True
 
-    def create_gallery(self, trigger, image=None, gallery=None):
-        if trigger == 'off':
-            # If triggered off, we can return the existing gallery without changes
-            # or an empty one if none exists.
-            return (gallery if gallery is not None else [],)
-
+    def create_gallery(self, gallery=None, **kwargs):
         new_gallery = gallery if gallery is not None else []
-        if image is not None:
-            new_gallery.append(image)
+
+        # Collect all image inputs, including dynamic ones like image, image_1, image_2 etc.
+        for key, value in kwargs.items():
+            if key.startswith('image') and value is not None:
+                # In ComfyUI, images can be single tensors or a batch (list of tensors)
+                if isinstance(value, list):
+                    new_gallery.extend(value)
+                else:
+                    new_gallery.append(value)
 
         ui_images = []
         for i, tensor_image in enumerate(new_gallery):
+            if not isinstance(tensor_image, torch.Tensor):
+                continue # Skip non-tensor items that might be in the list
+
             # Convert tensor to PIL Image
             img_np = tensor_image.squeeze(0).cpu().numpy()
             img_pil = Image.fromarray((img_np * 255).astype(np.uint8))
