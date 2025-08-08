@@ -1,9 +1,11 @@
+
 import torch
 import folder_paths
 from PIL import Image
 import numpy as np
 import os
 import server
+import threading
 
 class Gallery:
     def __init__(self):
@@ -19,7 +21,7 @@ class Gallery:
                 "image": ("IMAGE",),
                 "gallery": ("GALLERY",)
             },
-            "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"}, # Add hidden inputs
+            "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"},
         }
 
     RETURN_TYPES = ("GALLERY",)
@@ -27,21 +29,21 @@ class Gallery:
     CATEGORY = "Notes"
     OUTPUT_NODE = True 
 
+    def send_image_in_thread(self, node_id, image_data):
+        self.server.send_sync("sschl-gallery-update", {"node_id": node_id, "image": image_data})
+
     def create_gallery(self, prompt, extra_pnginfo, gallery=None, **kwargs):
         new_gallery = gallery if isinstance(gallery, list) else []
         
-        # Find the node_id for this node in the prompt
         node_id = None
         for i in prompt:
             if prompt[i]["class_type"] == "Gallery":
                 node_id = i
                 break
 
-        # Clear the existing gallery on new execution
         if node_id:
             self.server.send_sync("sschl-gallery-clear", {"node_id": node_id})
 
-        # Process all incoming images and send them one by one
         for key, value in kwargs.items():
             if value is not None and isinstance(value, torch.Tensor):
                 images = list(value) if value.dim() == 4 else [value]
@@ -61,7 +63,9 @@ class Gallery:
                             "subfolder": "",
                             "type": self.type
                         }
-                        self.server.send_sync("sschl-gallery-update", {"node_id": node_id, "image": image_data})
+                        # Run the send operation in a separate thread
+                        thread = threading.Thread(target=self.send_image_in_thread, args=(node_id, image_data))
+                        thread.start()
 
         return (new_gallery,)
 
