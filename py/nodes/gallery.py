@@ -1,13 +1,16 @@
+
 import torch
 import folder_paths
 from PIL import Image
 import numpy as np
 import os
+import server
 
 class Gallery:
     def __init__(self):
         self.output_dir = folder_paths.get_temp_directory()
         self.type = "temp"
+        self.server = server.PromptServer.instance
 
     @classmethod
     def INPUT_TYPES(s):
@@ -22,47 +25,48 @@ class Gallery:
     RETURN_TYPES = ("GALLERY",)
     FUNCTION = "create_gallery"
     CATEGORY = "Notes"
-    OUTPUT_NODE = True
+    # This node doesn't need to return a UI in the standard way anymore
+    OUTPUT_NODE = True 
 
     def create_gallery(self, gallery=None, **kwargs):
-        # Robustly initialize the gallery. It must be a list.
-        # If the incoming 'gallery' is not a list, start with a fresh one.
         new_gallery = gallery if isinstance(gallery, list) else []
+        
+        # We need the prompt to get the client_id and node_id
+        prompt = self.server.last_prompt
+        node_id = None
+        for i in prompt:
+            if prompt[i]["class_type"] == "Gallery":
+                node_id = i
+                break
 
-        # Process all incoming keyword arguments.
-        # This will include 'image', 'image_1', 'image_2', etc.
+        # Clear the existing gallery on new execution
+        if node_id:
+            self.server.send_sync("sschl-gallery-clear", {"node_id": node_id})
+
+        # Process all incoming images and send them one by one
         for key, value in kwargs.items():
-            # We are only interested in image tensors.
             if value is not None and isinstance(value, torch.Tensor):
-                # ComfyUI can pass images as a single tensor or a batch of tensors.
-                # We handle both cases by checking the dimensions.
-                if value.dim() == 4: # Batch of images
-                    new_gallery.extend(list(value))
-                elif value.dim() == 3: # Single image
-                    new_gallery.append(value)
+                images = list(value) if value.dim() == 4 else [value]
+                for tensor_image in images:
+                    new_gallery.append(tensor_image)
+                    
+                    img_np = tensor_image.squeeze(0).cpu().numpy()
+                    img_pil = Image.fromarray((img_np * 255).astype(np.uint8))
+                    
+                    filename = f"gallery_temp_{len(new_gallery)}_{np.random.randint(100000)}.png"
+                    file_path = os.path.join(self.output_dir, filename)
+                    img_pil.save(file_path)
+                    
+                    if node_id:
+                        image_data = {
+                            "filename": filename,
+                            "subfolder": "",
+                            "type": self.type
+                        }
+                        self.server.send_sync("sschl-gallery-update", {"node_id": node_id, "image": image_data})
 
-        ui_images = []
-        for i, tensor_image in enumerate(new_gallery):
-            if not isinstance(tensor_image, torch.Tensor):
-                continue # Skip any non-tensor data that might have slipped in.
-
-            # Convert tensor to a PIL Image for saving.
-            img_np = tensor_image.squeeze(0).cpu().numpy()
-            img_pil = Image.fromarray((img_np * 255).astype(np.uint8))
-            
-            # Save the image to a temporary file that the frontend can access.
-            filename = f"gallery_temp_{i}_{np.random.randint(100000)}.png"
-            file_path = os.path.join(self.output_dir, filename)
-            img_pil.save(file_path)
-            
-            # Provide the necessary info for the frontend to display the image.
-            ui_images.append({
-                "filename": filename,
-                "subfolder": "",
-                "type": self.type
-            })
-
-        return {"ui": {"gallery_images": ui_images}, "result": (new_gallery,)}
+        # The final return is just the gallery data for the next node
+        return (new_gallery,)
 
 NODE_CLASS_MAPPINGS = {
     "Gallery": Gallery
