@@ -1,4 +1,3 @@
-
 import { app } from "/scripts/app.js";
 
 app.registerExtension({
@@ -19,18 +18,20 @@ app.registerExtension({
                 style.textContent = `
                     .sschl-gallery-widget {
                         width: 100%;
-                        height: 100%; /* Fill the available height */
-                        display: grid;
-                        grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+                        height: 100%;
+                        display: flex; /* Use Flexbox for better scaling */
+                        flex-wrap: wrap; /* Allow items to wrap to the next line */
                         gap: 4px;
                         padding: 4px;
                         box-sizing: border-box;
-                        overflow-y: auto; /* Add scrollbar if content overflows */
+                        overflow-y: auto;
                     }
                     .sschl-gallery-widget img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: contain; /* Show full image without cropping */
+                        flex-grow: 1; /* Allow images to grow to fill space */
+                        flex-shrink: 1; /* Allow images to shrink */
+                        width: auto; /* Let flexbox control the width */
+                        max-height: 100%; /* Respect the container height */
+                        object-fit: contain;
                         cursor: pointer;
                     }
                     .sschl-gallery-overlay {
