@@ -22,7 +22,7 @@ class Gallery:
     RETURN_TYPES = ("GALLERY",)
     FUNCTION = "create_gallery"
     CATEGORY = "Notes"
-    OUTPUT_NODE = True
+    OUTPUT_NODE = False
 
     def create_gallery(self, gallery=None, **kwargs):
         # Robustly initialize the gallery. It must be a list.

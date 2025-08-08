@@ -28,7 +28,7 @@ app.registerExtension({
                     .sschl-gallery-widget img {
                         width: 100%;
                         height: 100%;
-                        object-fit: cover;
+                        object-fit: contain; /* Show full image without cropping */
                         cursor: pointer;
                     }
                     .sschl-gallery-overlay {
