@@ -1,4 +1,3 @@
-
 import torch
 import folder_paths
 from PIL import Image
@@ -19,20 +18,19 @@ class Gallery:
             "optional": {
                 "image": ("IMAGE",),
                 "gallery": ("GALLERY",)
-            }
+            },
+            "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"}, # Add hidden inputs
         }
 
     RETURN_TYPES = ("GALLERY",)
     FUNCTION = "create_gallery"
     CATEGORY = "Notes"
-    # This node doesn't need to return a UI in the standard way anymore
     OUTPUT_NODE = True 
 
-    def create_gallery(self, gallery=None, **kwargs):
+    def create_gallery(self, prompt, extra_pnginfo, gallery=None, **kwargs):
         new_gallery = gallery if isinstance(gallery, list) else []
         
-        # We need the prompt to get the client_id and node_id
-        prompt = self.server.last_prompt
+        # Find the node_id for this node in the prompt
         node_id = None
         for i in prompt:
             if prompt[i]["class_type"] == "Gallery":
@@ -65,7 +63,6 @@ class Gallery:
                         }
                         self.server.send_sync("sschl-gallery-update", {"node_id": node_id, "image": image_data})
 
-        # The final return is just the gallery data for the next node
         return (new_gallery,)
 
 NODE_CLASS_MAPPINGS = {
