@@ -1,4 +1,3 @@
-
 import torch
 import folder_paths
 from PIL import Image
@@ -12,8 +11,6 @@ class Gallery:
 
     @classmethod
     def INPUT_TYPES(s):
-        # Although we handle dynamic inputs, we define the initial ones for clarity.
-        # The JS part will add more inputs named image_1, image_2, etc.
         return {
             "required": {},
             "optional": {
@@ -28,8 +25,9 @@ class Gallery:
     OUTPUT_NODE = True
 
     def create_gallery(self, gallery=None, **kwargs):
-        # Initialize the gallery. If an existing gallery is passed, use it.
-        new_gallery = gallery if gallery is not None else []
+        # Robustly initialize the gallery. It must be a list.
+        # If the incoming 'gallery' is not a list, start with a fresh one.
+        new_gallery = gallery if isinstance(gallery, list) else []
 
         # Process all incoming keyword arguments.
         # This will include 'image', 'image_1', 'image_2', etc.
@@ -49,7 +47,6 @@ class Gallery:
                 continue # Skip any non-tensor data that might have slipped in.
 
             # Convert tensor to a PIL Image for saving.
-            # Tensors are expected to be in CHW format, so we might need to adjust if not.
             img_np = tensor_image.squeeze(0).cpu().numpy()
             img_pil = Image.fromarray((img_np * 255).astype(np.uint8))
             
