@@ -31,3 +31,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Character": "Character",
     "Connector": "Connector",
 }
+
+from .py.nodes.gallery import Gallery
+NODE_CLASS_MAPPINGS["Gallery"] = Gallery
+NODE_DISPLAY_NAME_MAPPINGS["Gallery"] = "Gallery Node"
+
+WEB_DIRECTORY = "js"
