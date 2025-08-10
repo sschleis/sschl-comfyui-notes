@@ -19,6 +19,9 @@ app.registerExtension({
                     .sschl-gallery-widget img { width: 100%; height: 100%; object-fit: contain; cursor: pointer; }
                     .sschl-gallery-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
                     .sschl-gallery-overlay img { max-width: 90vw; max-height: 90vh; }
+                    .sschl-gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 50px; color: white; cursor: pointer; user-select: none; padding: 20px; }
+                    .sschl-gallery-arrow.left { left: 0; }
+                    .sschl-gallery-arrow.right { right: 0; }
                 `;
                 widgetContainer.appendChild(style);
                 this.addDOMWidget("gallery", "div", widgetContainer);
@@ -67,11 +70,36 @@ app.registerExtension({
                 const img = new Image();
                 img.src = api.apiURL(`/view?filename=${encodeURIComponent(imgInfo.filename)}&type=${imgInfo.type}&subfolder=${encodeURIComponent(imgInfo.subfolder)}`);
                 img.onclick = () => {
+                    const images = Array.from(node.galleryContainer.querySelectorAll('img')).map(i => i.src);
+                    let currentIndex = images.indexOf(img.src);
+
                     const overlay = document.createElement('div');
                     overlay.className = 'sschl-gallery-overlay';
+
                     const fullImg = new Image();
                     fullImg.src = img.src;
                     overlay.appendChild(fullImg);
+
+                    const leftArrow = document.createElement('div');
+                    leftArrow.className = 'sschl-gallery-arrow left';
+                    leftArrow.innerHTML = '&#10094;';
+                    leftArrow.onclick = (e) => {
+                        e.stopPropagation();
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                        fullImg.src = images[currentIndex];
+                    };
+                    overlay.appendChild(leftArrow);
+
+                    const rightArrow = document.createElement('div');
+                    rightArrow.className = 'sschl-gallery-arrow right';
+                    rightArrow.innerHTML = '&#10095;';
+                    rightArrow.onclick = (e) => {
+                        e.stopPropagation();
+                        currentIndex = (currentIndex + 1) % images.length;
+                        fullImg.src = images[currentIndex];
+                    };
+                    overlay.appendChild(rightArrow);
+
                     overlay.onclick = () => overlay.remove();
                     document.body.appendChild(overlay);
                 };
