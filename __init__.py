@@ -11,6 +11,7 @@ from .py.nodes.ss_text_encoder import SSchlTextEncoder
 from .py.nodes.character import Character
 from .py.nodes.connector import Connector
 from .py.nodes.gallery import Gallery
+from .py.nodes.res_finder import ResFinder
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -24,6 +25,7 @@ NODE_CLASS_MAPPINGS = {
     "Character": Character,
     "Connector": Connector,
     "Gallery": Gallery,
+    "ResFinder": ResFinder,
 }
 
 # Add all node display names to the mapping
@@ -38,6 +40,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Character": "Character",
     "Connector": "Connector",
     "Gallery": "Gallery Node",
+    "ResFinder": "Resolution Finder (2MP)",
 }
 
 # Specify the web directory for the gallery's JavaScript
