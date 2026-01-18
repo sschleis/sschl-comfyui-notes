@@ -12,6 +12,7 @@ from .py.nodes.character import Character
 from .py.nodes.connector import Connector
 from .py.nodes.gallery import Gallery
 from .py.nodes.res_finder import ResFinder
+from .py.nodes.one_m_scale import OneMScale
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -26,6 +27,7 @@ NODE_CLASS_MAPPINGS = {
     "Connector": Connector,
     "Gallery": Gallery,
     "ResFinder": ResFinder,
+    "OneMScale": OneMScale,
 }
 
 # Add all node display names to the mapping
@@ -41,6 +43,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Connector": "Connector",
     "Gallery": "Gallery Node",
     "ResFinder": "Resolution Finder (2MP)",
+    "OneMScale": "1m_Scale",
 }
 
 # Specify the web directory for the gallery's JavaScript
