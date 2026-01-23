@@ -38,3 +38,4 @@ The project is structured as follows:
 *   **Text Appender**: Hängt einen Text an einen eingehenden String an (Anfang oder Ende).
 *   **SSchl Text Encoder**: Kodiert einen eingehenden Text mit einem CLIP-Modell, ähnlich dem Standard-Text-Encoder von ComfyUI, aber mit Texteingabe von einer anderen Node.
 *   **Character**: Ermöglicht die Auswahl eines Charakters aus einer Liste und gibt dessen Beschreibung aus.
+*   **Group Manager**: Ermöglicht das Aktivieren und Deaktivieren von Gruppen im Workflow über Schalter in der Node.
