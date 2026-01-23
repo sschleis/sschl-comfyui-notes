@@ -25,6 +25,14 @@ app.registerExtension({
                 const groups = app.graph._groups || [];
                 const currentWidgets = new Set();
 
+                const setGroupNodesMode = (group, mute) => {
+                    const nodesInGroup = group.getNodes();
+                    const mode = mute ? 2 : 0; // 2: Never, 0: Always
+                    for (const node of nodesInGroup) {
+                        node.mode = mode;
+                    }
+                };
+
                 // Find existing group widgets and sync them
                 if (this.widgets) {
                     for (let i = this.widgets.length - 1; i >= 0; i--) {
@@ -34,8 +42,12 @@ app.registerExtension({
                             const group = groups.find(g => g.title === groupTitle);
                             if (group) {
                                 currentWidgets.add(groupTitle);
-                                // Sync mute state
-                                group.mute = !w.value;
+                                // Sync mute state and node modes if it changed
+                                const newMute = !w.value;
+                                if (group.mute !== newMute) {
+                                    group.mute = newMute;
+                                    setGroupNodesMode(group, newMute);
+                                }
                             } else {
                                 // Group no longer exists
                                 this.widgets.splice(i, 1);
@@ -48,7 +60,9 @@ app.registerExtension({
                 for (const group of groups) {
                     if (!currentWidgets.has(group.title)) {
                         const widget = this.addWidget("toggle", "group_" + group.title, !group.mute, (v) => {
-                            group.mute = !v;
+                            const mute = !v;
+                            group.mute = mute;
+                            setGroupNodesMode(group, mute);
                             app.graph.setDirtyCanvas(true);
                         });
                         widget.name = "group_" + group.title;
