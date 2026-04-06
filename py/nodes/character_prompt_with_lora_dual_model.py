@@ -58,13 +58,15 @@ class CharacterPromptWithLoraWithDualModel:
                 "zib_model": ("MODEL",),
                 "zib_clip": ("CLIP",),
                 "zit_model": ("MODEL",),
-                "zit_clip": ("CLIP",),
                 "extra_lora_1": (lora_list,),
                 "extra_lora_strength_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
                 "extra_lora_2": (lora_list,),
                 "extra_lora_strength_2": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
                 "extra_lora_3": (lora_list,),
                 "extra_lora_strength_3": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
+            },
+            "optional": {
+                "zit_clip": ("CLIP",),
             },
         }
 
@@ -73,7 +75,7 @@ class CharacterPromptWithLoraWithDualModel:
     FUNCTION = "generate"
     CATEGORY = "MyCustomNodes"
 
-    def generate(self, character, with_key, ignore_text, zib_model, zib_clip, zit_model, zit_clip,
+    def generate(self, character, with_key, ignore_text, zib_model, zib_clip, zit_model, zit_clip=None,
                  extra_lora_1, extra_lora_strength_1,
                  extra_lora_2, extra_lora_strength_2,
                  extra_lora_3, extra_lora_strength_3):
