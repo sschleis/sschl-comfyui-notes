@@ -10,35 +10,40 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadyM",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zit_lora": "",
+            "zib_lora": "ZIB/ZIB_LadyM_ws.safetensors",
+            "zit_lora": "zit/LadyM ZIT_epoch_10safetensors",
         },
         "LadyK": {
             "prompt": "Always describe the woman as being around 35 years old. describe her always with reddish brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyK. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text. describe here with glasses. she wears glasses.",
             "filename": "LadyK",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zit_lora": "",
+            "zib_lora": "ZIB/ZIB_LadyK_ws.safetensors",
+            "zit_lora": "zit/LadyK ZIT_epoch_10safetensors",
         },
         "SG": {
             "prompt": "Always describe the woman as being around 25 years old. describe her always with blond hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text.",
             "filename": "SG",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zit_lora": "",
+            "zib_lora": "ZIB/ZIB_SlaveGirl_ws.safetensors",
+            "zit_lora": "zit/SlaveGirl - ZIT_epoch_10.safetensors",
         },
         "Pet": {
             "prompt": "Always describe the woman as being around 25 years old. describe her always with black hair, styled as an undercut with one side shaved and the other side shoulder long. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text.",
             "filename": "Pet",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zit_lora": "",
+            "zib_lora": "ZIB/ZIB_PetGirl_ws.safetensors",
+            "zit_lora": "zit/PetGirl - ZIT_epoch_10.safetensors",
         },
         "LadySam": {
             "prompt": "Always describe the woman as being around 25 years old. describe her always with curly black hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadySam. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
             "filename": "LadySam",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zit_lora": "",
+            "zib_lora": "ZIB/ZIB_LadySam.safetensors",
+            "zit_lora": "zit/LadySam_ZIT_epoch_10.safetensors",
         },
     }
 
@@ -84,6 +89,9 @@ class CharacterPromptWithLoraWithDualModel:
 
         zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUl.safetensors", 1.0, 1.0)
 
+        if data["zib_lora"]:
+            zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, data["zib_lora"], 1.0, 1.0)
+
         if data["zit_lora"]:
             zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, data["zit_lora"], 0.4, 0.4)
 
@@ -94,6 +102,6 @@ class CharacterPromptWithLoraWithDualModel:
         ]:
             if extra_lora != "None":
                 zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, extra_lora, str_val, str_val)
-                zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, extra_lora, str_val, str_val)
+                #zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, extra_lora, str_val, str_val)
 
         return (zib_model, zib_clip, zit_model, zit_clip, prompt, filename)
