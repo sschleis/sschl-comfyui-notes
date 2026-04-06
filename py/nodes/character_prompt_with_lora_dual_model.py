@@ -11,7 +11,7 @@ class CharacterPromptWithLoraWithDualModel:
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
             "zib_lora": "ZIB\ZIB_LadyM_ws.safetensors",
-            "zit_lora": "zit\LadyM_ZIT_epoch_10safetensors",
+            "zit_lora": "zit\LadyM_ZIT_epoch_10.safetensors",
         },
         "LadyK": {
             "prompt": "Always describe the woman as being around 35 years old. describe her always with reddish brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyK. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text. describe here with glasses. she wears glasses.",
@@ -19,7 +19,7 @@ class CharacterPromptWithLoraWithDualModel:
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
             "zib_lora": "ZIB\ZIB_LadyK_ws.safetensors",
-            "zit_lora": "zit\LadyK_ZIT_epoch_10safetensors",
+            "zit_lora": "zit\LadyK_ZIT_epoch_10.safetensors",
         },
         "SG": {
             "prompt": "Always describe the woman as being around 25 years old. describe her always with blond hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text.",
