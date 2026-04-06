@@ -14,6 +14,7 @@ from .py.nodes.gallery import Gallery
 from .py.nodes.res_finder import ResFinder
 from .py.nodes.one_m_scale import OneMScale
 from .py.nodes.group_manager import GroupManager
+from .py.nodes.character_prompt import CharacterPrompt
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -30,6 +31,7 @@ NODE_CLASS_MAPPINGS = {
     "ResFinder": ResFinder,
     "OneMScale": OneMScale,
     "GroupManager": GroupManager,
+    "CharacterPrompt": CharacterPrompt,
 }
 
 # Add all node display names to the mapping
@@ -47,6 +49,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ResFinder": "Resolution Finder (2MP)",
     "OneMScale": "1m_Scale",
     "GroupManager": "Group Manager",
+    "CharacterPrompt": "Character Prompt",
 }
 
 # Specify the web directory for the gallery's JavaScript
