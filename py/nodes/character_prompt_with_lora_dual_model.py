@@ -85,15 +85,13 @@ class CharacterPromptWithLoraWithDualModel:
             prompt += data["ignore_text_prompt"]
         filename = data["filename"]
 
-        lora_loader = LoraLoader()
-
-        zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, "ZIB\Z-Image-Fun-Lora-Distill-8-Steps_ComfyUI.safetensors", 1.0, 1.0)
+        zib_model, zib_clip = LoraLoader().load_lora(zib_model, zib_clip, "ZIB\Z-Image-Fun-Lora-Distill-8-Steps_ComfyUI.safetensors", 1.0, 1.0)
 
         if data["zib_lora"]:
-            zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, data["zib_lora"], 1.0, 1.0)
+            zib_model, zib_clip = LoraLoader().load_lora(zib_model, zib_clip, data["zib_lora"], 1.0, 1.0)
 
         if data["zit_lora"]:
-            zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, data["zit_lora"], 0.4, 0.4)
+            zit_model, zit_clip = LoraLoader().load_lora(zit_model, zit_clip, data["zit_lora"], 0.4, 0.4)
 
         for extra_lora, str_val in [
             (extra_lora_1, extra_lora_strength_1),
@@ -101,7 +99,7 @@ class CharacterPromptWithLoraWithDualModel:
             (extra_lora_3, extra_lora_strength_3),
         ]:
             if extra_lora != "None":
-                zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, extra_lora, str_val, str_val)
-                #zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, extra_lora, str_val, str_val)
+                zib_model, zib_clip = LoraLoader().load_lora(zib_model, zib_clip, extra_lora, str_val, str_val)
+                #zit_model, zit_clip = LoraLoader().load_lora(zit_model, zit_clip, extra_lora, str_val, str_val)
 
         return (zib_model, zib_clip, zit_model, zit_clip, prompt, filename)

@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8c91d56-4ec7-498a-867f-605b3d7c449c" name="Changes" comment="group_manager: sync node modes with group mute state">
-      <change beforePath="$PROJECT_DIR$/js/character_prompt_lora.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora_dual_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora_dual_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/py/nodes/utils.py" beforeDir="false" />
-    </list>
+    <list default="true" id="a8c91d56-4ec7-498a-867f-605b3d7c449c" name="Changes" comment="group_manager: sync node modes with group mute state" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,7 +87,7 @@
       <updated>1768686656986</updated>
       <workItem from="1768686658080" duration="3427000" />
       <workItem from="1769157383616" duration="4147000" />
-      <workItem from="1775506638867" duration="1845000" />
+      <workItem from="1775506638867" duration="2446000" />
     </task>
     <task id="LOCAL-00001" summary="res_finder">
       <option name="closed" value="true" />
