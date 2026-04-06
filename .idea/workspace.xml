@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a8c91d56-4ec7-498a-867f-605b3d7c449c" name="Changes" comment="group_manager: sync node modes with group mute state">
+      <change beforePath="$PROJECT_DIR$/js/character_prompt_lora.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora_dual_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/nodes/character_prompt_with_lora_dual_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/py/nodes/utils.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="27" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "sschleis"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:sschleis/sschl-comfyui-notes.git",
+    "accountId": "df87619c-9bd7-410e-b491-f7e5533c371c"
+  }
+}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="38P1zWPjcWC0asK2uoWQl3UOj9n" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "ai.playground.ignore.import.keys.banner.in.settings": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecapSpentCounter">
+    <option name="endsOfQuotaMs" value="1771282829884" />
+    <option name="spentUsd" value="0.02480785" />
+  </component>
+  <component name="RecapUselessUpdatesCounter">
+    <option name="suspendCountdown" value="1" />
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.29346.308" />
+        <option value="bundled-python-sdk-ca5e2b39c7df-6e1f45a539f7-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.29346.308" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a8c91d56-4ec7-498a-867f-605b3d7c449c" name="Changes" comment="" />
+      <created>1768686656986</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1768686656986</updated>
+      <workItem from="1768686658080" duration="3427000" />
+      <workItem from="1769157383616" duration="4147000" />
+      <workItem from="1775506638867" duration="1845000" />
+    </task>
+    <task id="LOCAL-00001" summary="res_finder">
+      <option name="closed" value="true" />
+      <created>1768687023578</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1768687023578</updated>
+    </task>
+    <task id="LOCAL-00002" summary="one_m_scale">
+      <option name="closed" value="true" />
+      <created>1768753081922</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1768753081922</updated>
+    </task>
+    <task id="LOCAL-00003" summary="group_manager">
+      <option name="closed" value="true" />
+      <created>1769160031247</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1769160031247</updated>
+    </task>
+    <task id="LOCAL-00004" summary="group_manager: sync node modes with group mute state">
+      <option name="closed" value="true" />
+      <created>1769160641090</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1769160641090</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="res_finder" />
+    <MESSAGE value="one_m_scale" />
+    <MESSAGE value="group_manager" />
+    <MESSAGE value="group_manager: sync node modes with group mute state" />
+    <option name="LAST_COMMIT_MESSAGE" value="group_manager: sync node modes with group mute state" />
+  </component>
+</project>

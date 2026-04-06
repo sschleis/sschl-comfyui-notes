@@ -1,6 +1,5 @@
 import folder_paths
 from nodes import LoraLoader
-from .utils import FlexibleOptionalInputType, any_type
 
 
 class CharacterPromptWithLoraWithDualModel:
@@ -55,11 +54,13 @@ class CharacterPromptWithLoraWithDualModel:
                 "zib_clip": ("CLIP",),
                 "zit_model": ("MODEL",),
                 "zit_clip": ("CLIP",),
-            },
-            "optional": FlexibleOptionalInputType(type=any_type, data={
                 "extra_lora_1": (lora_list,),
                 "extra_lora_strength_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-            }),
+                "extra_lora_2": (lora_list,),
+                "extra_lora_strength_2": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
+                "extra_lora_3": (lora_list,),
+                "extra_lora_strength_3": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
+            },
         }
 
     RETURN_TYPES = ("MODEL", "CLIP", "MODEL", "CLIP", "STRING", "STRING")
@@ -67,7 +68,10 @@ class CharacterPromptWithLoraWithDualModel:
     FUNCTION = "generate"
     CATEGORY = "MyCustomNodes"
 
-    def generate(self, character, with_key, ignore_text, zib_model, zib_clip, zit_model, zit_clip, **kwargs):
+    def generate(self, character, with_key, ignore_text, zib_model, zib_clip, zit_model, zit_clip,
+                 extra_lora_1, extra_lora_strength_1,
+                 extra_lora_2, extra_lora_strength_2,
+                 extra_lora_3, extra_lora_strength_3):
         data = self.CHARACTER_DATA[character]
         prompt = data["prompt"]
         if with_key:
@@ -83,17 +87,13 @@ class CharacterPromptWithLoraWithDualModel:
         if data["zit_lora"]:
             zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, data["zit_lora"], 0.4, 0.4)
 
-        i = 1
-        while True:
-            lora_key = f"extra_lora_{i}"
-            str_key = f"extra_lora_strength_{i}"
-            if lora_key not in kwargs:
-                break
-            extra_lora = kwargs[lora_key]
-            str_val = kwargs.get(str_key, 1.0)
+        for extra_lora, str_val in [
+            (extra_lora_1, extra_lora_strength_1),
+            (extra_lora_2, extra_lora_strength_2),
+            (extra_lora_3, extra_lora_strength_3),
+        ]:
             if extra_lora != "None":
                 zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, extra_lora, str_val, str_val)
                 zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, extra_lora, str_val, str_val)
-            i += 1
 
         return (zib_model, zib_clip, zit_model, zit_clip, prompt, filename)

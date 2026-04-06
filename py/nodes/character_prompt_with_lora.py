@@ -1,6 +1,5 @@
 import folder_paths
 from nodes import LoraLoader
-from .utils import FlexibleOptionalInputType, any_type
 
 
 class CharacterPromptWithLora:
@@ -54,11 +53,13 @@ class CharacterPromptWithLora:
                 "model": ("MODEL",),
                 "clip": ("CLIP",),
                 "lora_strength": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-            },
-            "optional": FlexibleOptionalInputType(type=any_type, data={
                 "extra_lora_1": (lora_list,),
                 "extra_lora_strength_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-            }),
+                "extra_lora_2": (lora_list,),
+                "extra_lora_strength_2": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
+                "extra_lora_3": (lora_list,),
+                "extra_lora_strength_3": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
+            },
         }
 
     RETURN_TYPES = ("MODEL", "CLIP", "STRING", "STRING")
@@ -66,7 +67,10 @@ class CharacterPromptWithLora:
     FUNCTION = "generate"
     CATEGORY = "MyCustomNodes"
 
-    def generate(self, character, with_key, ignore_text, model, clip, lora_strength, **kwargs):
+    def generate(self, character, with_key, ignore_text, model, clip, lora_strength,
+                 extra_lora_1, extra_lora_strength_1,
+                 extra_lora_2, extra_lora_strength_2,
+                 extra_lora_3, extra_lora_strength_3):
         data = self.CHARACTER_DATA[character]
         prompt = data["prompt"]
         if with_key:
@@ -80,16 +84,12 @@ class CharacterPromptWithLora:
         if data["lora"]:
             model, clip = lora_loader.load_lora(model, clip, data["lora"], lora_strength, lora_strength)
 
-        i = 1
-        while True:
-            lora_key = f"extra_lora_{i}"
-            str_key = f"extra_lora_strength_{i}"
-            if lora_key not in kwargs:
-                break
-            extra_lora = kwargs[lora_key]
-            str_val = kwargs.get(str_key, 1.0)
+        for extra_lora, str_val in [
+            (extra_lora_1, extra_lora_strength_1),
+            (extra_lora_2, extra_lora_strength_2),
+            (extra_lora_3, extra_lora_strength_3),
+        ]:
             if extra_lora != "None":
                 model, clip = lora_loader.load_lora(model, clip, extra_lora, str_val, str_val)
-            i += 1
 
         return (model, clip, prompt, filename)
