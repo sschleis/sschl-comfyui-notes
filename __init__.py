@@ -16,7 +16,7 @@ from .py.nodes.one_m_scale import OneMScale
 from .py.nodes.group_manager import GroupManager
 from .py.nodes.character_prompt import CharacterPrompt
 from .py.nodes.character_prompt_with_lora import CharacterPromptWithLora
-from .py.nodes.character_prompt_with_lora2 import CharacterPromptWithLora2
+from .py.nodes.character_prompt_with_lora_dual_model import CharacterPromptWithLoraWithDualModel
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -35,7 +35,7 @@ NODE_CLASS_MAPPINGS = {
     "GroupManager": GroupManager,
     "CharacterPrompt": CharacterPrompt,
     "CharacterPromptWithLora": CharacterPromptWithLora,
-    "CharacterPromptWithLora2": CharacterPromptWithLora2,
+    "CharacterPromptWithLoraWithDualModel": CharacterPromptWithLoraWithDualModel,
 }
 
 # Add all node display names to the mapping
