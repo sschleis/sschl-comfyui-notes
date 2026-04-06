@@ -87,7 +87,7 @@ class CharacterPromptWithLoraWithDualModel:
 
         lora_loader = LoraLoader()
 
-        zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, "ZIB\Z-Image-Fun-Lora-Distill-8-Steps_ComfyUl.safetensors", 1.0, 1.0)
+        zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, "ZIB\Z-Image-Fun-Lora-Distill-8-Steps_ComfyUI.safetensors", 1.0, 1.0)
 
         if data["zib_lora"]:
             zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, data["zib_lora"], 1.0, 1.0)
