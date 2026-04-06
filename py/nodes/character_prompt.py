@@ -4,27 +4,32 @@ class CharacterPrompt:
         "LadyM": {
             "prompt": "Always describe the woman as being around 32 years old. describe her always with dark burgundy hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyM. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
             "filename": "LadyM",
-            "key_prompt": " Describe her always with a necklace with a small key on it. ",
+            "key_prompt": "Describe her always with a necklace with a small key on it. ",
+            "ignore_text_prompt": "Ignore the text on the picture. ",
         },
         "LadyK": {
-            "prompt": "Always describe the woman as being around 35 years old. describe her always with reddish brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyM. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text. describe here with glasses. she wears glasses.",
+            "prompt": "Always describe the woman as being around 35 years old. describe her always with reddish brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyK. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. describe here with glasses. she wears glasses.",
             "filename": "LadyK",
-            "key_prompt": " Describe her always with a necklace with a small key on it. ",
+            "key_prompt": "Describe her always with a necklace with a small key on it. ",
+            "ignore_text_prompt": "Ignore the text on the picture. ",
         },
         "SG": {
-            "prompt": "Always describe the woman as being around 25 years old. describe her always with blond hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text.",
+            "prompt": "Always describe the woman as being around 25 years old. describe her always with blond hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos.",
             "filename": "SG",
-            "key_prompt": " Describe her always with a necklace with a small key on it. ",
+            "key_prompt": "Describe her always with a necklace with a small key on it. ",
+            "ignore_text_prompt": "Ignore the text on the picture. ",
         },
         "Pet": {
-            "prompt": "Always describe the woman as being around 25 years old. describe her always with black hair, styled as an undercut with one side shaved and the other side shoulder long. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text.",
+            "prompt": "Always describe the woman as being around 25 years old. describe her always with black hair, styled as an undercut with one side shaved and the other side shoulder long. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos.",
             "filename": "Pet",
-            "key_prompt": " Describe her always with a necklace with a small key on it. ",
+            "key_prompt": "Describe her always with a necklace with a small key on it. ",
+            "ignore_text_prompt": "Ignore the text on the picture. ",
         },
         "LadySam": {
-            "prompt": "Always describe the woman as being around 25 years old. describe her always with curly black hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyM. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
+            "prompt": "Always describe the woman as being around 25 years old. describe her always with curly black hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadySam. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
             "filename": "LadySam",
-            "key_prompt": " Describe her always with a necklace with a small key on it. ",
+            "key_prompt": "Describe her always with a necklace with a small key on it. ",
+            "ignore_text_prompt": "Ignore the text on the picture. ",
         },
     }
 
@@ -36,6 +41,7 @@ class CharacterPrompt:
             },
             "optional": {
                 "with_key": ("BOOLEAN", {"default": False}),
+                "ignore_text": ("BOOLEAN", {"default": False}),
             },
         }
 
@@ -44,8 +50,12 @@ class CharacterPrompt:
     FUNCTION = "generate"
     CATEGORY = "MyCustomNodes"
 
-    def generate(self, character, with_key=False):
+    def generate(self, character, with_key=False, ignore_text=False):
         data = self.CHARACTER_DATA[character]
-        prompt = data["key_prompt"] if with_key else data["prompt"]
+        prompt = data["prompt"]
+        if with_key:
+            prompt += data["key_prompt"]
+        if ignore_text:
+            prompt += data["ignore_text_prompt"]
         filename = data["filename"]
         return (prompt, filename)
