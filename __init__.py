@@ -55,7 +55,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "GroupManager": "Group Manager",
     "CharacterPrompt": "Character Prompt",
     "CharacterPromptWithLora": "Character Prompt with Lora",
-    "CharacterPromptWithLora2": "Character Prompt with Lora 2",
+    "CharacterPromptWithLoraWithDualModel": "Character Prompt with Lora Dual Model",
 }
 
 # Specify the web directory for the gallery's JavaScript

@@ -1,5 +1,6 @@
 import folder_paths
 from nodes import LoraLoader
+from .utils import FlexibleOptionalInputType, any_type
 
 
 class CharacterPromptWithLoraWithDualModel:
@@ -10,7 +11,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadyM",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zib_lora": "",
+            "zib_lora": "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUl.safetensors",
             "zit_lora": "",
         },
         "LadyK": {
@@ -18,7 +19,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadyK",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zib_lora": "",
+            "zib_lora": "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUl.safetensors",
             "zit_lora": "",
         },
         "SG": {
@@ -26,7 +27,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "SG",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zib_lora": "",
+            "zib_lora": "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUl.safetensors",
             "zit_lora": "",
         },
         "Pet": {
@@ -34,7 +35,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "Pet",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zib_lora": "",
+            "zib_lora": "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUl.safetensors",
             "zit_lora": "",
         },
         "LadySam": {
@@ -42,7 +43,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadySam",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "",
-            "zib_lora": "",
+            "zib_lora": "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUl.safetensors",
             "zit_lora": "",
         },
     }
@@ -53,21 +54,17 @@ class CharacterPromptWithLoraWithDualModel:
         return {
             "required": {
                 "character": (list(cls.CHARACTER_DATA.keys()),),
+                "with_key": ("BOOLEAN", {"default": False}),
+                "ignore_text": ("BOOLEAN", {"default": False}),
                 "zib_model": ("MODEL",),
                 "zib_clip": ("CLIP",),
                 "zit_model": ("MODEL",),
                 "zit_clip": ("CLIP",),
+            },
+            "optional": FlexibleOptionalInputType(type=any_type, data={
                 "extra_lora_1": (lora_list,),
-                "extra_lora_strength_model_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "extra_lora_strength_clip_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "extra_lora_2": (lora_list,),
-                "extra_lora_strength_model_2": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "extra_lora_strength_clip_2": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-            },
-            "optional": {
-                "with_key": ("BOOLEAN", {"default": False}),
-                "ignore_text": ("BOOLEAN", {"default": False}),
-            },
+                "extra_lora_strength_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
+            }),
         }
 
     RETURN_TYPES = ("MODEL", "CLIP", "MODEL", "CLIP", "STRING", "STRING")
@@ -75,10 +72,7 @@ class CharacterPromptWithLoraWithDualModel:
     FUNCTION = "generate"
     CATEGORY = "MyCustomNodes"
 
-    def generate(self, character, zib_model, zib_clip, zit_model, zit_clip,
-                 extra_lora_1, extra_lora_strength_model_1, extra_lora_strength_clip_1,
-                 extra_lora_2, extra_lora_strength_model_2, extra_lora_strength_clip_2,
-                 with_key=False, ignore_text=False):
+    def generate(self, character, with_key, ignore_text, zib_model, zib_clip, zit_model, zit_clip, **kwargs):
         data = self.CHARACTER_DATA[character]
         prompt = data["prompt"]
         if with_key:
@@ -95,12 +89,17 @@ class CharacterPromptWithLoraWithDualModel:
         if data["zit_lora"]:
             zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, data["zit_lora"], 0.4, 0.4)
 
-        for extra_lora, str_m, str_c in [
-            (extra_lora_1, extra_lora_strength_model_1, extra_lora_strength_clip_1),
-            (extra_lora_2, extra_lora_strength_model_2, extra_lora_strength_clip_2),
-        ]:
+        i = 1
+        while True:
+            lora_key = f"extra_lora_{i}"
+            str_key = f"extra_lora_strength_{i}"
+            if lora_key not in kwargs:
+                break
+            extra_lora = kwargs[lora_key]
+            str_val = kwargs.get(str_key, 1.0)
             if extra_lora != "None":
-                zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, extra_lora, str_m, str_c)
-                zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, extra_lora, str_m, str_c)
+                zib_model, zib_clip = lora_loader.load_lora(zib_model, zib_clip, extra_lora, str_val, str_val)
+                zit_model, zit_clip = lora_loader.load_lora(zit_model, zit_clip, extra_lora, str_val, str_val)
+            i += 1
 
         return (zib_model, zib_clip, zit_model, zit_clip, prompt, filename)

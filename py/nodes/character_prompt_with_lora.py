@@ -1,5 +1,6 @@
 import folder_paths
 from nodes import LoraLoader
+from .utils import FlexibleOptionalInputType, any_type
 
 
 class CharacterPromptWithLora:
@@ -48,21 +49,16 @@ class CharacterPromptWithLora:
         return {
             "required": {
                 "character": (list(cls.CHARACTER_DATA.keys()),),
-                "model": ("MODEL",),
-                "clip": ("CLIP",),
-                "lora_strength_model": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "lora_strength_clip": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "extra_lora_1": (lora_list,),
-                "extra_lora_strength_model_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "extra_lora_strength_clip_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "extra_lora_2": (lora_list,),
-                "extra_lora_strength_model_2": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-                "extra_lora_strength_clip_2": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
-            },
-            "optional": {
                 "with_key": ("BOOLEAN", {"default": False}),
                 "ignore_text": ("BOOLEAN", {"default": False}),
+                "model": ("MODEL",),
+                "clip": ("CLIP",),
+                "lora_strength": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
             },
+            "optional": FlexibleOptionalInputType(type=any_type, data={
+                "extra_lora_1": (lora_list,),
+                "extra_lora_strength_1": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
+            }),
         }
 
     RETURN_TYPES = ("MODEL", "CLIP", "STRING", "STRING")
@@ -70,10 +66,7 @@ class CharacterPromptWithLora:
     FUNCTION = "generate"
     CATEGORY = "MyCustomNodes"
 
-    def generate(self, character, model, clip, lora_strength_model, lora_strength_clip,
-                 extra_lora_1, extra_lora_strength_model_1, extra_lora_strength_clip_1,
-                 extra_lora_2, extra_lora_strength_model_2, extra_lora_strength_clip_2,
-                 with_key=False, ignore_text=False):
+    def generate(self, character, with_key, ignore_text, model, clip, lora_strength, **kwargs):
         data = self.CHARACTER_DATA[character]
         prompt = data["prompt"]
         if with_key:
@@ -85,13 +78,18 @@ class CharacterPromptWithLora:
         lora_loader = LoraLoader()
 
         if data["lora"]:
-            model, clip = lora_loader.load_lora(model, clip, data["lora"], lora_strength_model, lora_strength_clip)
+            model, clip = lora_loader.load_lora(model, clip, data["lora"], lora_strength, lora_strength)
 
-        for extra_lora, str_m, str_c in [
-            (extra_lora_1, extra_lora_strength_model_1, extra_lora_strength_clip_1),
-            (extra_lora_2, extra_lora_strength_model_2, extra_lora_strength_clip_2),
-        ]:
+        i = 1
+        while True:
+            lora_key = f"extra_lora_{i}"
+            str_key = f"extra_lora_strength_{i}"
+            if lora_key not in kwargs:
+                break
+            extra_lora = kwargs[lora_key]
+            str_val = kwargs.get(str_key, 1.0)
             if extra_lora != "None":
-                model, clip = lora_loader.load_lora(model, clip, extra_lora, str_m, str_c)
+                model, clip = lora_loader.load_lora(model, clip, extra_lora, str_val, str_val)
+            i += 1
 
         return (model, clip, prompt, filename)
