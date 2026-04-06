@@ -15,6 +15,8 @@ from .py.nodes.res_finder import ResFinder
 from .py.nodes.one_m_scale import OneMScale
 from .py.nodes.group_manager import GroupManager
 from .py.nodes.character_prompt import CharacterPrompt
+from .py.nodes.character_prompt_with_lora import CharacterPromptWithLora
+from .py.nodes.character_prompt_with_lora2 import CharacterPromptWithLora2
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -32,6 +34,8 @@ NODE_CLASS_MAPPINGS = {
     "OneMScale": OneMScale,
     "GroupManager": GroupManager,
     "CharacterPrompt": CharacterPrompt,
+    "CharacterPromptWithLora": CharacterPromptWithLora,
+    "CharacterPromptWithLora2": CharacterPromptWithLora2,
 }
 
 # Add all node display names to the mapping
@@ -50,6 +54,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "OneMScale": "1m_Scale",
     "GroupManager": "Group Manager",
     "CharacterPrompt": "Character Prompt",
+    "CharacterPromptWithLora": "Character Prompt with Lora",
+    "CharacterPromptWithLora2": "Character Prompt with Lora 2",
 }
 
 # Specify the web directory for the gallery's JavaScript
