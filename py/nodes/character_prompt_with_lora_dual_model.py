@@ -94,7 +94,7 @@ class CharacterPromptWithLoraWithDualModel:
             zib_model, zib_clip = LoraLoader().load_lora(zib_model, zib_clip, data["zib_lora"], 1.0, 1.0)
 
         if data["zit_lora"]:
-            zit_clip = zit_clip if zit_clip is not None else zib_clip
+            #zit_clip = zit_clip if zit_clip is not None else zib_clip
             zit_model, zit_clip = LoraLoader().load_lora(zit_model, zit_clip, data["zit_lora"], 0.4, 0.4)
 
         for extra_lora, str_val in [
