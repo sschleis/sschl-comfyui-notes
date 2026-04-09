@@ -13,6 +13,22 @@ class CharacterPromptWithLoraWithDualModel:
             "zib_lora": "ZIB/ZIB_LadyM_ws.safetensors",
             "zit_lora": "zit/LadyM_ZIT_epoch_10.safetensors",
         },
+        "LadyM Office": {
+            "prompt": "Always describe the woman as being around 30 years old. describe her always with dark burgundy hair. Describe the location as an modern IT-Office. She is walking. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyM. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos.",
+            "filename": "LadyM",
+            "key_prompt": " Describe her always with a necklace with a small key on it. ",
+            "ignore_text_prompt": "Ignore the text on the picture. ",
+            "zib_lora": "ZIB/ZIB_LadyM_ws.safetensors",
+            "zit_lora": "zit/LadyM_ZIT_epoch_10.safetensors",
+        },
+        "LadyM Random": {
+            "prompt": "Describe the woman's outfit in detail, including her shoes. Also, always describe her as having dark burgundy hair. Ignore the background and pose, and come up with a random location and pose that matches the outfit. Ignore tattoos and ignore text in your description. she is 32 years old.",
+            "filename": "LadyM",
+            "key_prompt": " Describe her always with a necklace with a small key on it. ",
+            "ignore_text_prompt": "Ignore the text on the picture. ",
+            "zib_lora": "ZIB/ZIB_LadyM_ws.safetensors",
+            "zit_lora": "zit/LadyM_ZIT_epoch_10.safetensors",
+        },
         "LadyK": {
             "prompt": "Always describe the woman as being around 35 years old. describe her always with reddish brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyK. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail. ignore the tattoos. ignore the text. describe here with glasses. she wears glasses.",
             "filename": "LadyK",
