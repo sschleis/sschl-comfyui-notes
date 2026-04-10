@@ -99,7 +99,7 @@ class CharacterPromptWithLoraWithDualModel:
     FUNCTION = "generate"
     CATEGORY = "MyCustomNodes"
 
-    def generate(self, character, with_key, ignore_text, zib_model, zib_clip, zit_model,
+    def generate(self, character, with_key, ignore_text, with_collar, zib_model, zib_clip, zit_model,
                  extra_lora_1, extra_lora_strength_1,
                  extra_lora_2, extra_lora_strength_2,
                  extra_lora_3, extra_lora_strength_3,
@@ -108,10 +108,10 @@ class CharacterPromptWithLoraWithDualModel:
         prompt = data["prompt"]
         if with_key:
             prompt += data["key_prompt"]
-        if ignore_text:
-            prompt += data["ignore_text_prompt"]
         if with_collar:
             prompt += data["collar"]
+        if ignore_text:
+            prompt += data["ignore_text_prompt"]
         filename = data["filename"]
 
         zib_model, zib_clip = LoraLoader().load_lora(zib_model, zib_clip, "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUI.safetensors", 1.0, 1.0)
