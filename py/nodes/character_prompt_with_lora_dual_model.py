@@ -10,6 +10,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadyM",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
+            "collar": "Describe her always with a bdsm style metal collar around her neck with a ring on the collars front. ",
             "zib_lora": "ZIB/ZIB_LadyM_ws.safetensors",
             "zit_lora": "zit/LadyM_ZIT_epoch_10.safetensors",
         },
@@ -18,6 +19,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadyM",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
+            "collar": "Describe her always with a bdsm style metal collar around her neck with a ring on the collars front. ",
             "zib_lora": "ZIB/ZIB_LadyM_ws.safetensors",
             "zit_lora": "zit/LadyM_ZIT_epoch_10.safetensors",
         },
@@ -26,6 +28,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadyM",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
+            "collar": "Describe her always with a bdsm style metal collar around her neck with a ring on the collars front. ",
             "zib_lora": "ZIB/ZIB_LadyM_ws.safetensors",
             "zit_lora": "zit/LadyM_ZIT_epoch_10.safetensors",
         },
@@ -34,6 +37,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadyK",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
+            "collar": "Describe her always with a bdsm style metal collar around her neck with a ring on the collars front. ",
             "zib_lora": "ZIB/ZIB_LadyK_ws.safetensors",
             "zit_lora": "zit/LadyK_ZIT_epoch_10.safetensors",
         },
@@ -42,6 +46,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "SG",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
+            "collar": "Describe her always with a bdsm style metal collar around her neck with a ring on the collars front. ",
             "zib_lora": "ZIB/ZIB_SlaveGirl_ws.safetensors",
             "zit_lora": "zit/SlaveGirl_ZIT_epoch_10.safetensors",
         },
@@ -50,6 +55,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "Pet",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
+            "collar": "Describe her always with a bdsm style metal collar around her neck with a ring on the collars front. ",
             "zib_lora": "ZIB/ZIB_PetGirl_ws.safetensors",
             "zit_lora": "zit/PetGirl_ZIT_epoch_10.safetensors",
         },
@@ -58,6 +64,7 @@ class CharacterPromptWithLoraWithDualModel:
             "filename": "LadySam",
             "key_prompt": " Describe her always with a necklace with a small key on it. ",
             "ignore_text_prompt": "Ignore the text on the picture. ",
+            "collar": "Describe her always with a bdsm style metal collar around her neck with a ring on the collars front. ",
             "zib_lora": "ZIB/ZIB_LadySam.safetensors",
             "zit_lora": "zit/LadySam_ZIT_epoch_10.safetensors",
         },
@@ -70,6 +77,7 @@ class CharacterPromptWithLoraWithDualModel:
             "required": {
                 "character": (list(cls.CHARACTER_DATA.keys()),),
                 "with_key": ("BOOLEAN", {"default": False}),
+                "with_collar": ("BOOLEAN", {"default": False}),
                 "ignore_text": ("BOOLEAN", {"default": False}),
                 "zib_model": ("MODEL",),
                 "zib_clip": ("CLIP",),
@@ -102,6 +110,8 @@ class CharacterPromptWithLoraWithDualModel:
             prompt += data["key_prompt"]
         if ignore_text:
             prompt += data["ignore_text_prompt"]
+        if with_collar:
+            prompt += data["collar"]
         filename = data["filename"]
 
         zib_model, zib_clip = LoraLoader().load_lora(zib_model, zib_clip, "ZIB/Z-Image-Fun-Lora-Distill-8-Steps_ComfyUI.safetensors", 1.0, 1.0)
