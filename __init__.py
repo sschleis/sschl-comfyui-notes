@@ -17,6 +17,7 @@ from .py.nodes.group_manager import GroupManager
 from .py.nodes.character_prompt import CharacterPrompt
 from .py.nodes.character_prompt_with_lora import CharacterPromptWithLora
 from .py.nodes.character_prompt_with_lora_dual_model import CharacterPromptWithLoraWithDualModel
+from .py.nodes.switch import Switch
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -36,6 +37,7 @@ NODE_CLASS_MAPPINGS = {
     "CharacterPrompt": CharacterPrompt,
     "CharacterPromptWithLora": CharacterPromptWithLora,
     "CharacterPromptWithLoraWithDualModel": CharacterPromptWithLoraWithDualModel,
+    "Switch": Switch,
 }
 
 # Add all node display names to the mapping
@@ -56,6 +58,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "CharacterPrompt": "Character Prompt",
     "CharacterPromptWithLora": "Character Prompt with Lora",
     "CharacterPromptWithLoraWithDualModel": "Character Prompt with Lora Dual Model",
+    "Switch": "Switch",
 }
 
 # Specify the web directory for the gallery's JavaScript
