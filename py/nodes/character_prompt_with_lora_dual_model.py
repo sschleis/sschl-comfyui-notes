@@ -54,7 +54,7 @@ class CharacterPromptWithLoraWithDualModel:
             "zit_lora": "zit/LadySam_ZIT_epoch_10.safetensors",
         },
         "LadyN": {
-            "prompt": "Always describe the woman as being around 32 years old. describe her always with dirty blonde hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyN. Describe her eyes with grey-blue color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
+            "prompt": "Always describe the woman as being around 32 years old. describe her always with light ash brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyN. Describe her eyes with grey-blue color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
             "filename": "LadyN",
             "zib_lora": "ZIB/ZIB_LadyN_ws.safetensors",
             "zit_lora": "zit/ZIT_LadyN_ws.safetensors",
