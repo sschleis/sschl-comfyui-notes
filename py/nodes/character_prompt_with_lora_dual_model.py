@@ -53,6 +53,12 @@ class CharacterPromptWithLoraWithDualModel:
             "zib_lora": "ZIB/ZIB_LadySam.safetensors",
             "zit_lora": "zit/LadySam_ZIT_epoch_10.safetensors",
         },
+        "LadyN": {
+            "prompt": "Always describe the woman as being around 32 years old. describe her always with dirty blonde hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyN. Describe her eyes with grey-blue color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
+            "filename": "LadyN",
+            "zib_lora": "ZIB/ZIB_LadyN_ws.safetensors",
+            "zit_lora": "",
+        },
     }
 
     @classmethod
@@ -110,9 +116,13 @@ class CharacterPromptWithLoraWithDualModel:
         if data["zib_lora"]:
             zib_model, zib_clip = LoraLoader().load_lora(zib_model, zib_clip, data["zib_lora"], 1.0, 1.0)
 
-        if data["zit_lora"]:
-            #zit_clip = zit_clip if zit_clip is not None else zib_clip
-            zit_model, zit_clip = LoraLoader().load_lora(zit_model, zit_clip, data["zit_lora"], 0.4, 0.4)
+        zit_lora = data.get("zit_lora", "")
+        if zit_lora:
+            if zit_clip is None:
+                zit_clip = zib_clip
+            zit_model, zit_clip = LoraLoader().load_lora(zit_model, zit_clip, zit_lora, 0.4, 0.4)
+        elif zit_clip is None:
+            zit_clip = zib_clip
 
         for extra_lora, str_val in [
             (extra_lora_1, extra_lora_strength_1),
