@@ -12,6 +12,7 @@ from .py.nodes.character import Character
 from .py.nodes.connector import Connector
 from .py.nodes.gallery import Gallery
 from .py.nodes.res_finder import ResFinder
+from .py.nodes.sdxl_res_finder import SDXLResFinder
 from .py.nodes.one_m_scale import OneMScale
 from .py.nodes.group_manager import GroupManager
 from .py.nodes.character_prompt import CharacterPrompt
@@ -32,6 +33,7 @@ NODE_CLASS_MAPPINGS = {
     "Connector": Connector,
     "Gallery": Gallery,
     "ResFinder": ResFinder,
+    "SDXLResFinder": SDXLResFinder,
     "OneMScale": OneMScale,
     "GroupManager": GroupManager,
     "CharacterPrompt": CharacterPrompt,
@@ -53,6 +55,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Connector": "Connector",
     "Gallery": "Gallery Node",
     "ResFinder": "Resolution Finder (2MP)",
+    "SDXLResFinder": "SDXL Resolution Finder",
     "OneMScale": "1m_Scale",
     "GroupManager": "Group Manager",
     "CharacterPrompt": "Character Prompt",
