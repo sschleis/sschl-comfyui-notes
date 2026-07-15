@@ -37,6 +37,17 @@ class Krea2LoraUtil:
         "LadyN": "Krea2_char\\L4dyN_krea2_lora_v1.safetensors",
     }
 
+    CHARACTER_PROMPTS = {
+        "No": "",
+        "LadyM": "Always describe the woman as being around 32 years old. describe her always with dark burgundy hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyM. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. describe her with a light smile. ignore the smartphone.",
+        "LadyK": "Always describe the woman as being around 35 years old. describe her always with reddish brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyK. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail.",
+        "SG": "Always describe the woman as being around 25 years old. describe her always with blond hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail.",
+        "Pet": "Always describe the woman as being around 25 years old. describe her always with black hair, styled as an undercut with one side shaved and the other side shoulder long. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman SlaveGirl. describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. ignore the cigarette. describe her eyes in detail.",
+        "LadySam": "Always describe the woman as being around 25 years old. describe her always with curly black hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadySam. Describe her eyes with brown color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. describe her with a light smile. ignore the smartphone.",
+        "Natascha": "Always describe the woman as being around 48 years old. describe her always with blond hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman Natascha. Describe her eyes with blue color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. describe her with a light smile. ignore the smartphone.",
+        "LadyN": "Always describe the woman as being around 32 years old. describe her always with light ash brown hair. Describe her pose in detail. Describe the perspective in detail. Write everything in one continuous piece of text. Describe her outfit in detail. Describe her body shape. Call the woman LadyN. Describe her eyes with grey-blue color.  describe also the other persons. describe her facial expression. describe her as caucasian woman. ignore the logo. Add the text to the describtion. Always describe women as having an athletic, slim figure. describe her eyes in detail. ignore the tattoos. describe her with a light smile. ignore the smartphone.",
+    }
+
     REALISTIC_LORAS = [
         ("krea2_real\\ultra_real_krea2_v1.safetensors", 1.00),
         ("krea2_real\\real_3d_krea2_loraholic.safetensors", 0.90),
@@ -61,8 +72,8 @@ class Krea2LoraUtil:
             "optional": FlexibleOptionalInputType(any_type),
         }
 
-    RETURN_TYPES = ("MODEL", "STRING")
-    RETURN_NAMES = ("model", "name")
+    RETURN_TYPES = ("MODEL", "STRING", "STRING")
+    RETURN_NAMES = ("model", "name", "prompt")
     FUNCTION = "process"
     CATEGORY = "MyCustomNodes"
 
@@ -89,4 +100,6 @@ class Krea2LoraUtil:
             if enabled and manual_lora_name and manual_lora_name != "None":
                 model = lora_loader.load_lora_model_only(model, manual_lora_name, manual_lora_strength)[0]
 
-        return (model, character)
+        prompt = self.CHARACTER_PROMPTS[character]
+
+        return (model, character, prompt)
