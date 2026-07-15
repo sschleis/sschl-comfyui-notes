@@ -19,6 +19,10 @@ from .py.nodes.character_prompt import CharacterPrompt
 from .py.nodes.character_prompt_with_lora import CharacterPromptWithLora
 from .py.nodes.character_prompt_with_lora_dual_model import CharacterPromptWithLoraWithDualModel
 from .py.nodes.switch import Switch
+from .py.nodes.resolution_switch import ResolutionSwitch
+from .py.nodes.resolution_selector import ResolutionSelector
+from .py.nodes.resolution_finder import ResolutionFinder
+from .py.nodes.krea2_lora_util import Krea2LoraUtil
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -40,6 +44,10 @@ NODE_CLASS_MAPPINGS = {
     "CharacterPromptWithLora": CharacterPromptWithLora,
     "CharacterPromptWithLoraWithDualModel": CharacterPromptWithLoraWithDualModel,
     "Switch": Switch,
+    "ResolutionSwitch": ResolutionSwitch,
+    "ResolutionSelector": ResolutionSelector,
+    "ResolutionFinder": ResolutionFinder,
+    "Krea2LoraUtil": Krea2LoraUtil,
 }
 
 # Add all node display names to the mapping
@@ -62,6 +70,10 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "CharacterPromptWithLora": "Character Prompt with Lora",
     "CharacterPromptWithLoraWithDualModel": "Character Prompt with Lora Dual Model",
     "Switch": "Switch",
+    "ResolutionSwitch": "Resolution Switch",
+    "ResolutionSelector": "Resolution Selector",
+    "ResolutionFinder": "Resolution Finder",
+    "Krea2LoraUtil": "Krea2 Lora Util",
 }
 
 # Specify the web directory for the gallery's JavaScript
