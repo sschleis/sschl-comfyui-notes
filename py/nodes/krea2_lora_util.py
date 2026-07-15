@@ -58,6 +58,9 @@ class Krea2LoraUtil:
         ("krea2_real\\detail_slider_krea2_loraholic.safetensors", 0.80),
     ]
 
+    NECKLACE_PROMPT = " Describe her with a nacklace with a tiny key on it"
+    GLASSES_PROMPT = " Describe her with glasses"
+
     MANUAL_LORA_ENABLED_PATTERN = re.compile(r"^manual_lora_(\d+)_enabled$")
 
     @classmethod
@@ -66,6 +69,8 @@ class Krea2LoraUtil:
             "required": {
                 "model": ("MODEL",),
                 "character": (list(cls.CHARACTER_LORAS.keys()), {"default": "No"}),
+                "with_necklace": ("BOOLEAN", {"default": False}),
+                "with_glasses": ("BOOLEAN", {"default": False}),
                 "lora_strength": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
                 "realistic": ("BOOLEAN", {"default": True}),
             },
@@ -77,7 +82,7 @@ class Krea2LoraUtil:
     FUNCTION = "process"
     CATEGORY = "MyCustomNodes"
 
-    def process(self, model, character, lora_strength, realistic, **kwargs):
+    def process(self, model, character, with_necklace, with_glasses, lora_strength, realistic, **kwargs):
         lora_name = self.CHARACTER_LORAS[character]
         lora_loader = LoraLoaderModelOnly()
 
@@ -101,5 +106,9 @@ class Krea2LoraUtil:
                 model = lora_loader.load_lora_model_only(model, manual_lora_name, manual_lora_strength)[0]
 
         prompt = self.CHARACTER_PROMPTS[character]
+        if with_necklace:
+            prompt += self.NECKLACE_PROMPT
+        if with_glasses:
+            prompt += self.GLASSES_PROMPT
 
         return (model, character, prompt)
