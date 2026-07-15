@@ -23,6 +23,7 @@ from .py.nodes.resolution_switch import ResolutionSwitch
 from .py.nodes.resolution_selector import ResolutionSelector
 from .py.nodes.resolution_finder import ResolutionFinder
 from .py.nodes.krea2_lora_util import Krea2LoraUtil
+from .py.nodes.json_prompt import JSONPrompt
 
 # Add all node classes to the mapping
 NODE_CLASS_MAPPINGS = {
@@ -48,6 +49,7 @@ NODE_CLASS_MAPPINGS = {
     "ResolutionSelector": ResolutionSelector,
     "ResolutionFinder": ResolutionFinder,
     "Krea2LoraUtil": Krea2LoraUtil,
+    "JSONPrompt": JSONPrompt,
 }
 
 # Add all node display names to the mapping
@@ -74,6 +76,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ResolutionSelector": "Resolution Selector",
     "ResolutionFinder": "Resolution Finder",
     "Krea2LoraUtil": "Krea2 Lora Util",
+    "JSONPrompt": "JSON Prompt",
 }
 
 # Specify the web directory for the gallery's JavaScript
