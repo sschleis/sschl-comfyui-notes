@@ -51,12 +51,13 @@ class Krea2LoraUtil:
     REALISTIC_LORAS = [
         ("krea2_real\\ultra_real_krea2_v1.safetensors", 1.00),
         ("krea2_real\\real_3d_krea2_loraholic.safetensors", 0.90),
-        ("krea2_real\\Krea2-realism-V2.safetensors", 0.20),
         ("krea2_real\\skindetails_krea2_loraholic.safetensors", 0.60),
-        ("krea2_real\\snofs_krea_v1_1.safetensors", 0.80),
         ("krea2_style\\realism_engine_krea2_v2.safetensors", 0.80),
         ("krea2_real\\detail_slider_krea2_loraholic.safetensors", 0.80),
     ]
+
+    KREA2_REALISM_V2_LORA = ("krea2_real\\Krea2-realism-V2.safetensors", 0.20)
+    SNOFS_LORA = ("krea2_real\\snofs_krea_v1_1.safetensors", 0.80)
 
     NECKLACE_PROMPT = " Describe her with a nacklace with a tiny key on it"
     GLASSES_PROMPT = " Describe her with glasses"
@@ -73,6 +74,8 @@ class Krea2LoraUtil:
                 "with_glasses": ("BOOLEAN", {"default": False}),
                 "lora_strength": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
                 "realistic": ("BOOLEAN", {"default": True}),
+                "krea2_realism_v2": ("BOOLEAN", {"default": False}),
+                "snofs": ("BOOLEAN", {"default": False}),
             },
             "optional": FlexibleOptionalInputType(any_type),
         }
@@ -82,7 +85,8 @@ class Krea2LoraUtil:
     FUNCTION = "process"
     CATEGORY = "MyCustomNodes"
 
-    def process(self, model, character, with_necklace, with_glasses, lora_strength, realistic, **kwargs):
+    def process(self, model, character, with_necklace, with_glasses, lora_strength, realistic,
+                krea2_realism_v2, snofs, **kwargs):
         lora_name = self.CHARACTER_LORAS[character]
         lora_loader = LoraLoaderModelOnly()
 
@@ -92,6 +96,14 @@ class Krea2LoraUtil:
         if realistic:
             for real_lora_name, real_lora_strength in self.REALISTIC_LORAS:
                 model = lora_loader.load_lora_model_only(model, real_lora_name, real_lora_strength)[0]
+
+        if krea2_realism_v2:
+            lora_name_, strength_ = self.KREA2_REALISM_V2_LORA
+            model = lora_loader.load_lora_model_only(model, lora_name_, strength_)[0]
+
+        if snofs:
+            lora_name_, strength_ = self.SNOFS_LORA
+            model = lora_loader.load_lora_model_only(model, lora_name_, strength_)[0]
 
         row_indices = sorted(
             int(match.group(1))
