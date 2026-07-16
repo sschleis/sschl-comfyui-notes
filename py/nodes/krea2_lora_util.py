@@ -61,6 +61,8 @@ class Krea2LoraUtil:
 
     NECKLACE_PROMPT = " Describe her with a nacklace with a tiny key on it"
     GLASSES_PROMPT = " Describe her with glasses"
+    TATTOOS_PROMPT = " Describe her with Tattoos"
+    IGNORE_TATTOOS_PROMPT = " Ignore Tattoos"
 
     MANUAL_LORA_ENABLED_PATTERN = re.compile(r"^manual_lora_(\d+)_enabled$")
 
@@ -72,6 +74,7 @@ class Krea2LoraUtil:
                 "character": (list(cls.CHARACTER_LORAS.keys()), {"default": "No"}),
                 "with_necklace": ("BOOLEAN", {"default": False}),
                 "with_glasses": ("BOOLEAN", {"default": False}),
+                "with_tattoos": ("BOOLEAN", {"default": False}),
                 "lora_strength": ("FLOAT", {"default": 1.0, "min": -2.0, "max": 2.0, "step": 0.01}),
                 "realistic": ("BOOLEAN", {"default": True}),
                 "krea2_realism_v2": ("BOOLEAN", {"default": False}),
@@ -85,7 +88,7 @@ class Krea2LoraUtil:
     FUNCTION = "process"
     CATEGORY = "MyCustomNodes"
 
-    def process(self, model, character, with_necklace, with_glasses, lora_strength, realistic,
+    def process(self, model, character, with_necklace, with_glasses, with_tattoos, lora_strength, realistic,
                 krea2_realism_v2, snofs, **kwargs):
         lora_name = self.CHARACTER_LORAS[character]
         lora_loader = LoraLoaderModelOnly()
@@ -122,5 +125,9 @@ class Krea2LoraUtil:
             prompt += self.NECKLACE_PROMPT
         if with_glasses:
             prompt += self.GLASSES_PROMPT
+        if with_tattoos:
+            prompt += self.TATTOOS_PROMPT
+        else:
+            prompt += self.IGNORE_TATTOOS_PROMPT
 
         return (model, character, prompt)
